@@ -4,10 +4,11 @@
 ### Importando as bibliotecas
 library(readODS)
 library(corrplot)
-#library(igraph)
+library(igraph)
 
 ### Importando os dados para o data.frame
 df = read_ods("tab.ods", sheet=1) ### Tabela 1
+unidades = c("br", "mg", "es", "rj", "sp", "pr", "sc", "rs", "ba", "pe", "ce", "go", "am")
 
 ### Salvando os dados em vetores
 N = length(df[1,])  ### Qtdade de dados
@@ -49,3 +50,26 @@ MC = cor(DF, method="pearson")
 png("corr_matrix.png")
 corrplot(MC, method="number")
 dev.off()
+
+### Construindo a matriz de adjacência
+rk = length(MC[1,])  ### Rank da matriz de correlação
+A = MC               ### Use a matriz de correlação
+A[A>0.995] = 1       ### O valor 0.995 foi definido por observação
+A[A<1] = 0           ### Anulando todos os outros valores
+A = A - diag(rk)     ### Ajuste final, zerando a digonal
+
+### Gerando o grafo e suas estatísticas
+G = graph_from_adjacency_matrix(A, mode="undirected")
+DG = degree(G)        ### Graus dos nós
+BT = betweenness(G)   ### Intermediação de nós	
+EST = data.frame(unidades, DG, BT)
+
+### Apresentando as estatísticas
+print(EST)
+
+### Plotando o grafo
+png("graph_degree.png")
+plot(G, vertex.size=(12+1.2*DG))
+dev.off()
+
+### FIM
