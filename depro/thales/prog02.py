@@ -57,7 +57,7 @@ while (pronto == False and passos<Q):
   estado = taxi.s
   print("Estado = ", estado)  ## Apresentando o estado
   print(taxi.render())        ## graficamente por
-  sleep(0.3)                  ## 0.3 segundos
+  sleep(0.5)                  ## 0.3 segundos
   ## Determinando a melhor ação
   acao = np.argmax(q_tab[estado])  ## Índice da Ação com o maior valor Q
   ## Passando para o próximo estado, usando a ação escolhida:
