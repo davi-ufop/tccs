@@ -20,7 +20,7 @@ list_best = []             ### ... as melhores recomepnsas
 def run_epi(env, weight):  ### Matriz weight [4x2]
   state = env.reset()      ### Estado inicial do episódio
   total_rew = 0            ### Recompensa total
-  done = False             ### Quando True termina o episódio
+  done = False             ### Quando True, termina o episódio
   ### Varredura até que o módulo do ângulo exceda 22º
   while not done:
     state = tk.from_numpy(state).float()                 ### Estado a cada passo -> vetor [1x4]
