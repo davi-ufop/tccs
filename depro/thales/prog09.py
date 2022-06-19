@@ -18,6 +18,7 @@ noise_search = 0.1      ### Ruído pra busca - taxa de aprendizagem - VARIE!!!
 
 ### Função pra simular os episódios
 def run_epi(env, weight):  
+  env.seed(123)            ### Fixando a randomicidade 
   state = env.reset()      ### Estado inicial do episódio
   total_rew = 0            ### Recompensa total
   done = False             ### Quando True, termina o episódio
